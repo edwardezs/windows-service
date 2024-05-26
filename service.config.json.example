@@ -1,0 +1,12 @@
+{
+  "name": "service",
+  "description": "Windows service",
+  "parentExecPath": "C:/Users/user/service.exe",
+  "childExecPath": "C:/Users/user/server.exe",
+  "childExecArgs": ["-config", "C:/Users/user/config.json"],
+  "logFilePath": "service.log",
+  "logFileMaxSizeMB": 50,
+  "logFileMaxBackups": 3,
+  "logFileMaxAgeDays": 28,
+  "logFileCompress": false
+}
