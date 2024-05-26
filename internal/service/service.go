@@ -28,8 +28,8 @@ type WindowsService struct {
 	ParentExecPath string
 	ChildExecPath  string
 	ChildExecArgs  []string
-	Cmd            *exec.Cmd
-	Log            *lumberjack.Logger
+	cmd            *exec.Cmd
+	log            *lumberjack.Logger
 }
 
 func New(cfg config.WindowsService) *WindowsService {
@@ -44,7 +44,7 @@ func New(cfg config.WindowsService) *WindowsService {
 		ParentExecPath: cfg.ParentExecPath,
 		ChildExecPath:  cfg.ChildExecPath,
 		ChildExecArgs:  cfg.ChildExecArgs,
-		Log: &lumberjack.Logger{
+		log: &lumberjack.Logger{
 			Filename:   logPath,
 			MaxSize:    cfg.LogFileMaxSizeMB,
 			MaxBackups: cfg.LogFileMaxBackups,
@@ -55,15 +55,15 @@ func New(cfg config.WindowsService) *WindowsService {
 
 func (w *WindowsService) Execute(args []string, r <-chan svc.ChangeRequest, changes chan<- svc.Status) (ssec bool, errno uint32) {
 	changes <- svc.Status{State: svc.StartPending}
-	defer w.Log.Close()
+	defer w.log.Close()
 
 	processExited := make(chan error)
 	if err := w.startProcess(processExited); err != nil {
-		w.Log.Write([]byte(fmt.Sprintf("Failed to start process: %s\n", err.Error())))
+		w.log.Write([]byte(fmt.Sprintf("Failed to start process: %s\n", err.Error())))
 		return
 	}
 
-	w.Log.Write([]byte("Process started\n"))
+	w.log.Write([]byte("Process started\n"))
 	changes <- svc.Status{State: svc.Running, Accepts: svc.AcceptStop | svc.AcceptShutdown}
 
 loop:
@@ -74,29 +74,29 @@ loop:
 			case svc.Stop, svc.Shutdown:
 				changes <- svc.Status{State: svc.StopPending}
 				if err := w.stopProcess(processExited); err != nil {
-					w.Log.Write([]byte(fmt.Sprintf("Failed to stop process: %s\n", err.Error())))
+					w.log.Write([]byte(fmt.Sprintf("Failed to stop process: %s\n", err.Error())))
 				}
-				w.Log.Write([]byte("Process stopped\n"))
+				w.log.Write([]byte("Process stopped\n"))
 				break loop
 			default:
-				w.Log.Write([]byte(fmt.Sprintf("Unexpected control request #%d\n", c)))
+				w.log.Write([]byte(fmt.Sprintf("Unexpected control request #%d\n", c)))
 			}
 		case err := <-processExited:
 			if err != nil {
-				w.Log.Write([]byte(fmt.Sprintf("Process exited with error: %s, attempting restart\n", err.Error())))
+				w.log.Write([]byte(fmt.Sprintf("Process exited with error: %s, attempting restart\n", err.Error())))
 			} else {
-				w.Log.Write([]byte("Process exited, attempting restart\n"))
+				w.log.Write([]byte("Process exited, attempting restart\n"))
 			}
 			timeout := time.Now().Add(changeStateTimeout)
 			for {
 				if timeout.Before(time.Now()) {
-					w.Log.Write([]byte("Timeout waiting for process to restart exceeded\n"))
+					w.log.Write([]byte("Timeout waiting for process to restart exceeded\n"))
 					break loop
 				}
 				if err := w.startProcess(processExited); err != nil {
-					w.Log.Write([]byte("Failed to start process, retrying\n"))
+					w.log.Write([]byte("Failed to start process, retrying\n"))
 				} else {
-					w.Log.Write([]byte("Process restarted\n"))
+					w.log.Write([]byte("Process restarted\n"))
 					break
 				}
 				time.Sleep(changeStateDelay)
@@ -134,7 +134,7 @@ func (w *WindowsService) Start() error {
 
 func (w *WindowsService) Run() {
 	if err := svc.Run(w.Name, w); err != nil {
-		w.Log.Write([]byte(fmt.Sprintf("Failed to start service: %s\n", err.Error())))
+		w.log.Write([]byte(fmt.Sprintf("Failed to start service: %s\n", err.Error())))
 	}
 }
 
@@ -262,22 +262,22 @@ func (w *WindowsService) Delete() error {
 }
 
 func (w *WindowsService) startProcess(processExited chan error) error {
-	w.Cmd = exec.Command(w.ChildExecPath, w.ChildExecArgs...)
-	w.Cmd.Stdout = w.Log
-	w.Cmd.Stderr = w.Log
-	if err := w.Cmd.Start(); err != nil {
+	w.cmd = exec.Command(w.ChildExecPath, w.ChildExecArgs...)
+	w.cmd.Stdout = w.log
+	w.cmd.Stderr = w.log
+	if err := w.cmd.Start(); err != nil {
 		return ErrFailedToStartService
 	}
 
 	go func() {
-		processExited <- w.Cmd.Wait()
+		processExited <- w.cmd.Wait()
 	}()
 
 	return nil
 }
 
 func (w *WindowsService) stopProcess(processExited chan error) error {
-	if err := process.StopProcess(w.Cmd.Process.Pid); err != nil {
+	if err := process.StopProcess(w.cmd.Process.Pid); err != nil {
 		return ErrFailedToStopService
 	}
 	if err := <-processExited; err != nil {
