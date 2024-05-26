@@ -57,32 +57,24 @@ func (s *WindowsServiceTestSuite) TestChildProcessKill() {
 	require.NoError(s.T(), s.svc.Start())
 	time.Sleep(startDelay)
 
-	killCmd := exec.Command("cmd", "/C", "TASKKILL", "/F", "/IM", filepath.Base(childExecPath))
-	require.NoError(s.T(), killCmd.Run())
-	time.Sleep(restartDelay)
-
-	resp, err := http.Get(childURL)
-	require.NoError(s.T(), err)
-	require.Equal(s.T(), http.StatusOK, resp.StatusCode)
-
-	require.NoError(s.T(), s.svc.Stop())
-	time.Sleep(stopDelay)
-
-	require.NoError(s.T(), s.svc.Delete())
-}
-
-func (s *WindowsServiceTestSuite) TestLogging() {
-	require.NoError(s.T(), s.svc.Install())
-	time.Sleep(installDelay)
-	require.NoError(s.T(), s.svc.Start())
-	time.Sleep(startDelay)
-
 	_, err := os.Stat(logFile)
 	require.NoError(s.T(), err)
 
 	content, err := os.ReadFile(logFile)
 	require.NoError(s.T(), err)
 	require.Contains(s.T(), string(content), "Process started")
+
+	killCmd := exec.Command("cmd", "/C", "TASKKILL", "/F", "/IM", filepath.Base(childExecPath))
+	require.NoError(s.T(), killCmd.Run())
+	time.Sleep(restartDelay)
+
+	content, err = os.ReadFile(logFile)
+	require.NoError(s.T(), err)
+	require.Contains(s.T(), string(content), "Process restarted")
+
+	resp, err := http.Get(childURL)
+	require.NoError(s.T(), err)
+	require.Equal(s.T(), http.StatusOK, resp.StatusCode)
 
 	require.NoError(s.T(), s.svc.Stop())
 	time.Sleep(stopDelay)
