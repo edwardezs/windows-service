@@ -8,10 +8,10 @@ import (
 // ServiceCmd - cli-commands for running app as Windows service in background
 // Usage:
 //
-//	go run cmd/server/main.go service install
-//	go run cmd/server/main.go service start
-//	go run cmd/server/main.go service stop
-//	go run cmd/server/main.go service remove
+//	./service.exe service install
+//	./service.exe service start
+//	./service.exe service stop
+//	./service.exe service delete
 //
 // Note:  	admin rights are required to install/start/stop/remove app as Windows service
 var ServiceCmd = cli.Command{
