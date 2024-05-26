@@ -1,7 +1,7 @@
 ### Windows Service
 Runs application as a Windows service child process.
 
-Logs service events to a rotating file `service.log`:
+Logs service events to the rotating file `service.log`:
 ```json5
 Process started
 {"level":"info","time":"2024-05-26T09:58:09+03:00","message":"Starting server"}
@@ -26,7 +26,7 @@ Supported operations (only in Administrator mode):
 - `make stop` - stops the Windows service process
 - `make delete` - deletes the Windows service. If the service is running, it will be stopped first
 
-Can be managed through Task Manager of `sc.exe`.
+Can be managed through Task Manager or `sc.exe`.
 
 ### Configuration File
 
