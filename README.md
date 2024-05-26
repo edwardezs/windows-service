@@ -1,7 +1,7 @@
 ### Windows Service
-Запускает сервис как дочерний процесс службы Windows.
+Runs child process of a Windows service.
 
-Пишет логи сервиса в ротируемый файл `service.log`:
+Logs service events to a rotating file `service.log`:
 ```json5
 Process started
 {"level":"info","time":"2024-05-26T09:58:09+03:00","message":"Starting server"}
@@ -10,51 +10,52 @@ Process started
 Process stopped
 ```
 
-При аварийном завершении дочернего процесса пытается перезапустить его.
+If the child process crashes, it attempts to restart it.
 
-Операции (только в режиме Администратора):
-- `make build` - сборка бинарных файлов службы Windows и тестового дочернего процесса
-- `make install` - установка службы Windows (без записи в Реестр Windows)
-- `make start` - запуск процесса службы Windows в фоне
-- `make stop` - остановка процесса службы Windows
-- `make delete` - удаление службы Windows. Если служба запущена, то она будет предварительно остановлена
+Operations (only in Administrator mode):
+- `make build` - builds the Windows service and test child process binaries
+- `make install` - installs the Windows service (without registry entry)
+- `make start` - starts the Windows service process in the background
+- `make stop` - stops the Windows service process
+- `make delete` - deletes the Windows service. If the service is running, it will be stopped first остановлена
 
-Так же возможно управление службой через диспетчер задач.
+You can also manage the service through Task Manager.
 
-### Конфигурационный файл
+### Configuration File
 
 ```json5
 {
-  // имя регистрируемой службы Windows (обязательно)
+  // name of the registered Windows service (required)
   "name": "service",
-  // описание службы (обязательно)
+  // description of the service (required)
   "description": "Windows service",
-  // абсолютный путь бинарного файла родительского процесса (обязательно)
+  // absolute path to the parent process binary (required)
   "parentExecPath": "C:/Users/user/service.exe",
-  // абсолютный путь бинарного файла дочернего процесса (обязательно)
+  // absolute path to the child process binary (required)
   "childExecPath": "C:/Users/user/server.exe",
-  // параметры запуска дочернего процесса (необязательно)
+  // arguments for launching the child process (optional)
   "childExecArgs": ["-config", "C:/Users/user/config.json"],
-  // путь файла для записи логов дочернего процесса
-  // если указано только имя файла, то файл будет создан в директории бинарного файла дочернего процесса
+  // path to the log file for the child process
+  // if only a file name is provided, the file will be created in the child process binary's directory
   "logFilePath": "service.log",
-  // максимальный размер файла до ротирования (необязательно)
-  // при превышании размера будет создан новый файл с указанным выше именем, а файл со старыми логами будет переименован
+  // maximum size of the log file before rotating (optional)
+  // when the size is exceeded, a new file will be created with the specified name, and the old log file will be renamed
   "logFileMaxSizeMB": 50,
-  // максимальное количество ротаций файла (необязательно)
+  // maximum number of log file rotations (optional)
   "logFileMaxBackups": 3,
-  // максимальный срок хранения файла в днях (необязательно)
+  // maximum retention period for the log file in days (optional)
   "logFileMaxAgeDays": 28,
-  // сжатие файла с помощью gzip (необязательно)
+  // compress the log file using gzip (optional)
   "logFileCompress": false
 }
 ```
 
-Если дочерний процесс службы имеет свой конфигурационный файл, тогда имеющиеся в нём пути так же должны быть абсолютными!
+If the child process of the service has its own configuration file, the paths in it must also be absolute!
 
-Пример в `service.config.json.example`.
+Example in service.config.json.example.
 
-### Тесты
+### Tests
 
-Для запуска тестов службы Windows достаточно:
-- Запустить `make test` от имени Администратора
+To run Windows service tests:
+
+- Run `make test` as an Administrator
