@@ -14,30 +14,26 @@ import (
 //	./service.exe service delete
 //
 // Note:  	admin rights are required to install/start/stop/remove app as Windows service
-var ServiceCmd = cli.Command{
-	Name:  "service",
-	Usage: "send command to Windows service",
-	Subcommands: []cli.Command{
-		{
-			Name:   "install",
-			Usage:  "Install the service",
-			Action: serviceInstallCmd,
-		},
-		{
-			Name:   "start",
-			Usage:  "Start the service",
-			Action: serviceStartCmd,
-		},
-		{
-			Name:   "stop",
-			Usage:  "Stop the service",
-			Action: serviceStopCmd,
-		},
-		{
-			Name:   "delete",
-			Usage:  "Delete the service",
-			Action: serviceDeleteCmd,
-		},
+var ServiceCmd = []cli.Command{
+	{
+		Name:   "install",
+		Usage:  "Install the service",
+		Action: serviceInstallCmd,
+	},
+	{
+		Name:   "start",
+		Usage:  "Start the service",
+		Action: serviceStartCmd,
+	},
+	{
+		Name:   "stop",
+		Usage:  "Stop the service",
+		Action: serviceStopCmd,
+	},
+	{
+		Name:   "delete",
+		Usage:  "Delete the service",
+		Action: serviceDeleteCmd,
 	},
 }
 

@@ -10,10 +10,7 @@ import (
 	"golang.org/x/sys/windows/svc"
 )
 
-const (
-	changeStateTimeout = 10 * time.Second
-	changeStateDelay   = 1 * time.Second
-)
+const changeStateTimeout = 10 * time.Second
 
 type WindowsService struct {
 	Name           string
@@ -71,7 +68,6 @@ loop:
 					w.log.Write([]byte("Process restarted\n"))
 					break
 				}
-				time.Sleep(changeStateDelay)
 			}
 		}
 	}

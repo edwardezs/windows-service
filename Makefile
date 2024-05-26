@@ -1,18 +1,18 @@
 .PHONY: start
 start:
-	./service.exe -config service.config.json service start
+	./service.exe -config service.config.json start
 
 .PHONY: stop
 stop:
-	./service.exe -config service.config.json service stop
+	./service.exe -config service.config.json stop
 
 .PHONY: install
 install:
-	./service.exe -config service.config.json service install
+	./service.exe -config service.config.json install
 
 .PHONY: delete
 delete:
-	./service.exe -config service.config.json service delete
+	./service.exe -config service.config.json delete
 
 .PHONY: build
 build:

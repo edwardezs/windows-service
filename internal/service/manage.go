@@ -91,7 +91,6 @@ func (w *WindowsService) Stop() error {
 			log.Error().Msg("Timeout waiting for service to stop exceeded")
 			return ErrStopTimeoutExceeded
 		}
-		time.Sleep(changeStateDelay)
 		status, err = service.Query()
 		if err != nil {
 			log.Error().Err(err).Msg("Could not retrieve service status")
@@ -167,7 +166,6 @@ func (w *WindowsService) Delete() error {
 				log.Error().Msg("Timeout waiting for service to stop exceeded")
 				return ErrStopTimeoutExceeded
 			}
-			time.Sleep(changeStateDelay)
 			status, err = service.Query()
 			if err != nil {
 				log.Error().Err(err).Msg("Could not retrieve service status")

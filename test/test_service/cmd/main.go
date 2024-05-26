@@ -30,7 +30,5 @@ func main() {
 			LogFilePath:    filepath.Join(filepath.Dir(filepath.Dir(filepath.Dir(exePath))), "test_server/cmd/test_service.log"),
 		})
 		service.Run()
-		os.Exit(0)
 	}
-	os.Exit(0)
 }
