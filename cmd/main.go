@@ -30,6 +30,7 @@ func main() {
 		}
 		svc := service.New(cfg)
 		svc.Run()
+		os.Exit(0)
 	}
 
 	app := cli.New()

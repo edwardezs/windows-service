@@ -10,7 +10,14 @@ Process started
 Process stopped
 ```
 
-If the child process crashes, it attempts to restart it reporting the reason of crash.
+If the child process crashes, it attempts to restart it reporting the reason of crash:
+```json5
+Process started
+{"level":"info","time":"2024-05-26T13:35:03+03:00","message":"Starting server"}
+Process exited with error: exit status 1, attempting restart
+Process restarted
+{"level":"info","time":"2024-05-26T13:35:29+03:00","message":"Starting server"}
+```
 
 Operations (only in Administrator mode):
 - `make build` - builds the Windows service and test child process binaries

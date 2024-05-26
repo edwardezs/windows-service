@@ -11,10 +11,12 @@ import (
 // CfgFlag is the cli-flag used for parsing configuration of the Windows service
 // Usage: 		./service.exe <-config> <FLAG_VALUE> ...
 // Required:	true
+// Value:		"service.config.json"
 var CfgFlag = &cli.StringFlag{
-	Name:  "config",
+	Name:     "config",
 	Required: true,
-	Usage: "Configuration file",
+	Value:    "service.config.json",
+	Usage:    "Configuration file",
 }
 
 var appCtx AppContext
