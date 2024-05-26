@@ -8,12 +8,12 @@ import (
 // ServiceCmd - cli-commands for running app as Windows service in background
 // Usage:
 //
-//	./service.exe service install
-//	./service.exe service start
-//	./service.exe service stop
-//	./service.exe service delete
+//	./service.exe install
+//	./service.exe start
+//	./service.exe stop
+//	./service.exe delete
 //
-// Note:  	admin rights are required to install/start/stop/remove app as Windows service
+// Note:  	admin rights are required to install/start/stop/delete app as Windows service
 var ServiceCmd = []cli.Command{
 	{
 		Name:   "install",
