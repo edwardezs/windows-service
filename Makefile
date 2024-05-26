@@ -26,6 +26,6 @@ update:
 
 .PHONY: test
 test:
-	GOOS=windows go build -o test/test_service.exe cmd/main.go
-	GOOS=windows go build -o test/test_server.exe test/test_server/cmd/main.go
-	go test -race -v ./...
+	GOOS=windows go build -o test/test_service/cmd/test_service.exe test/test_service/cmd/main.go
+	GOOS=windows go build -o test/test_server/cmd/test_server.exe test/test_server/cmd/main.go
+	go test -race -v ./test/...

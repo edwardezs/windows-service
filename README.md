@@ -10,7 +10,7 @@ Process started
 Process stopped
 ```
 
-If the child process crashes, it attempts to restart it.
+If the child process crashes, it attempts to restart it reporting the reason of crash.
 
 Operations (only in Administrator mode):
 - `make build` - builds the Windows service and test child process binaries

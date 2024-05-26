@@ -13,12 +13,12 @@ import (
 )
 
 const (
-	parentExecPath = "test_service.exe"
-	parentGoFile   = "../cmd/main.go"
-	childExecPath  = "test_server.exe"
+	parentExecPath = "test_service/cmd/test_service.exe"
+	parentGoFile   = "test_service/cmd/main.go"
+	childExecPath  = "test_server/cmd/test_server.exe"
 	childGoFile    = "test_server/cmd/main.go"
 	childURL       = "http://localhost:8080/hello"
-	logFile        = "test_service.log"
+	logFile        = "test_server/cmd/test_service.log"
 )
 
 var cfg = config.WindowsService{
