@@ -26,9 +26,9 @@ Process stopped
 ```json5
 {
   // имя регистрируемой службы Windows (обязательно)
-  "name": "collector",
+  "name": "service",
   // описание службы (обязательно)
-  "description": "OPC UA Collector",
+  "description": "Windows service",
   // абсолютный путь бинарного файла родительского процесса (обязательно)
   "parentExecPath": "C:/Users/user/service.exe",
   // абсолютный путь бинарного файла дочернего процесса (обязательно)
