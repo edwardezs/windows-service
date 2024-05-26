@@ -17,7 +17,7 @@ Operations (only in Administrator mode):
 - `make install` - installs the Windows service (without registry entry)
 - `make start` - starts the Windows service process in the background
 - `make stop` - stops the Windows service process
-- `make delete` - deletes the Windows service. If the service is running, it will be stopped first остановлена
+- `make delete` - deletes the Windows service. If the service is running, it will be stopped first
 
 You can also manage the service through Task Manager.
 
