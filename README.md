@@ -1,5 +1,5 @@
 ### Windows Service
-Runs child process of a Windows service.
+Runs application as a Windows service child process.
 
 Logs service events to a rotating file `service.log`:
 ```json5
@@ -10,7 +10,7 @@ Process started
 Process stopped
 ```
 
-If the child process crashes, it attempts to restart it reporting the reason of crash:
+If the child process crashes, attempts to restart it reporting the reason of crash:
 ```json5
 Process started
 {"level":"info","time":"2024-05-26T13:35:03+03:00","message":"Starting server"}
@@ -19,14 +19,14 @@ Process restarted
 {"level":"info","time":"2024-05-26T13:35:29+03:00","message":"Starting server"}
 ```
 
-Operations (only in Administrator mode):
+Supported operations (only in Administrator mode):
 - `make build` - builds the Windows service and test child process binaries
 - `make install` - installs the Windows service (without registry entry)
 - `make start` - starts the Windows service process in the background
 - `make stop` - stops the Windows service process
 - `make delete` - deletes the Windows service. If the service is running, it will be stopped first
 
-You can also manage the service through Task Manager.
+Can be managed through Task Manager of `sc.exe`.
 
 ### Configuration File
 
