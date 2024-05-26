@@ -23,7 +23,7 @@ Process stopped
 
 ### Конфигурационный файл
 
-```json lines
+```json5
 {
   // имя регистрируемой службы Windows (обязательно)
   "name": "collector",
