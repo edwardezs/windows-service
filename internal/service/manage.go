@@ -16,7 +16,7 @@ import (
 func New(cfg config.WindowsService) *WindowsService {
 	logPath := cfg.LogFilePath
 	if logPath == "" || !filepath.IsAbs(logPath) {
-		logPath = filepath.Join(filepath.Dir(cfg.ChildExecPath), logFileName)
+		logPath = filepath.Join(filepath.Dir(cfg.ChildExecPath), logPath)
 	}
 
 	return &WindowsService{

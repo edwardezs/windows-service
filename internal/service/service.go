@@ -11,8 +11,6 @@ import (
 )
 
 const (
-	logFileName = "service.log"
-
 	changeStateTimeout = 10 * time.Second
 	changeStateDelay   = 1 * time.Second
 )
@@ -101,9 +99,6 @@ func (w *WindowsService) stopProcess(processExited chan error) error {
 	if err := process.StopProcess(w.cmd.Process.Pid); err != nil {
 		return ErrFailedToStopService
 	}
-	if err := <-processExited; err != nil {
-		return err
-	}
 
-	return nil
+	return <-processExited
 }
