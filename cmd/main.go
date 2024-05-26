@@ -21,12 +21,12 @@ func main() {
 	if isWinSvc {
 		exePath, err := os.Executable()
 		if err != nil {
-			os.Exit(1)
+			return
 		}
 		cfgPath := filepath.Join(filepath.Dir(exePath), cli.CfgFlag.Value)
 		cfg, err := config.New(cfgPath)
 		if err != nil {
-			os.Exit(1)
+			return
 		}
 		svc := service.New(cfg)
 		svc.Run()

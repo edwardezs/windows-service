@@ -31,8 +31,8 @@ type WindowsServiceTestSuite struct {
 	svc *service.WindowsService
 }
 
-// `make test-service` for execution
-// requeries built binaries of parent and child processes (check `make test-service`)
+// `make test` for execution
+// requeries built binaries of parent and child processes
 // admin rights required as well
 func TestSuiteWindowsService(t *testing.T) {
 	if testing.Short() {
