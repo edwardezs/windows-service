@@ -39,7 +39,7 @@ var ServiceCmd = []cli.Command{
 
 func serviceStartCmd(ctx *cli.Context) error {
 	if err := appCtx.svc.Start(); err != nil {
-		return errors.Wrap(err, "service finished with error")
+		return errors.Wrap(err, "failed to start service")
 	}
 
 	return nil
@@ -47,7 +47,7 @@ func serviceStartCmd(ctx *cli.Context) error {
 
 func serviceStopCmd(ctx *cli.Context) error {
 	if err := appCtx.svc.Stop(); err != nil {
-		return errors.Wrap(err, "service finished with error")
+		return errors.Wrap(err, "failed to stop service")
 	}
 
 	return nil

@@ -2,9 +2,9 @@ package cli
 
 import "github.com/urfave/cli"
 
-func New() *cli.App {
+func New(svcName string) *cli.App {
 	return &cli.App{
-		Name:     "Example Windows service",
+		Name:     svcName,
 		Flags:    []cli.Flag{CfgFlag},
 		Before:   SetupService,
 		Commands: ServiceCmd,

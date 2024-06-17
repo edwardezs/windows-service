@@ -12,6 +12,8 @@ import (
 	"win-svc/internal/service"
 )
 
+const svcName = "Example Windows Service"
+
 func main() {
 	isWinSvc, err := win.IsWindowsService()
 	if err != nil {
@@ -32,7 +34,7 @@ func main() {
 		svc.Run()
 	}
 
-	app := cli.New()
+	app := cli.New(svcName)
 	if err := app.Run(os.Args); err != nil {
 		log.Error().Err(err).Msg("An error occurred while running the application")
 	}
