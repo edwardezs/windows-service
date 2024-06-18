@@ -1,4 +1,4 @@
-module win-svc
+module github.com/edwardezs/win-svc
 
 go 1.22.3
 

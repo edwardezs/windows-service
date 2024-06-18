@@ -7,9 +7,9 @@ import (
 	"github.com/rs/zerolog/log"
 	win "golang.org/x/sys/windows/svc"
 
-	"win-svc/internal/cli"
-	"win-svc/internal/config"
-	"win-svc/internal/service"
+	"github.com/edwardezs/win-svc/pkg/cli"
+	"github.com/edwardezs/win-svc/pkg/config"
+	"github.com/edwardezs/win-svc/pkg/service"
 )
 
 const svcName = "Example Windows Service"

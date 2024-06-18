@@ -22,6 +22,7 @@ build:
 .PHONY: update
 update:
 	go mod tidy
+	go mod vendor
 	go fmt ./...
 
 .PHONY: test

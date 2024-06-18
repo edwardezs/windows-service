@@ -9,7 +9,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"win-svc/internal/service"
+	"github.com/edwardezs/win-svc/pkg/service"
 )
 
 const (

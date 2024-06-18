@@ -10,10 +10,10 @@ import (
 	"golang.org/x/sys/windows/svc"
 	"golang.org/x/sys/windows/svc/mgr"
 
-	"win-svc/internal/config"
+	"github.com/edwardezs/win-svc/pkg/config"
 )
 
-func New(cfg config.WindowsService) *WindowsService {
+func New(cfg config.WindowsServiceConfig) *WindowsService {
 	logPath := cfg.LogFilePath
 	if logPath == "" || !filepath.IsAbs(logPath) {
 		logPath = filepath.Join(filepath.Dir(cfg.ChildExecPath), logPath)

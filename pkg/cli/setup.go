@@ -4,8 +4,8 @@ import (
 	"github.com/pkg/errors"
 	"github.com/urfave/cli"
 
-	"win-svc/internal/config"
-	"win-svc/internal/service"
+	"github.com/edwardezs/win-svc/pkg/config"
+	"github.com/edwardezs/win-svc/pkg/service"
 )
 
 // CfgFlag is the cli-flag used for parsing configuration of the Windows service
@@ -23,7 +23,7 @@ var appCtx AppContext
 
 type AppContext struct {
 	svc *service.WindowsService
-	cfg config.WindowsService
+	cfg config.WindowsServiceConfig
 }
 
 // SetupService sets up the AppContext for the Windows service

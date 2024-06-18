@@ -5,7 +5,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-type WindowsService struct {
+type WindowsServiceConfig struct {
 	Name              string   `json:"name"`
 	Description       string   `json:"description"`
 	ParentExecPath    string   `json:"parentExecPath"`
@@ -18,7 +18,7 @@ type WindowsService struct {
 	LogFileCompress   bool     `json:"logFileCompress,omitempty"`
 }
 
-func New(filepath string) (cfg WindowsService, err error) {
+func New(filepath string) (cfg WindowsServiceConfig, err error) {
 	if err := configor.Load(&cfg, filepath); err != nil {
 		return cfg, errors.Wrapf(err, "can not parse config file %s", filepath)
 	}

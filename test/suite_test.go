@@ -8,8 +8,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
 
-	"win-svc/internal/config"
-	"win-svc/internal/service"
+	"github.com/edwardezs/win-svc/pkg/config"
+	"github.com/edwardezs/win-svc/pkg/service"
 )
 
 const (
@@ -21,7 +21,7 @@ const (
 	logFile        = "test_server/cmd/test_service.log"
 )
 
-var cfg = config.WindowsService{
+var cfg = config.WindowsServiceConfig{
 	Name:        "test_service",
 	Description: "Test Windows service",
 }

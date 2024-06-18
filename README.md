@@ -1,4 +1,7 @@
-### Windows Service
+# Windows Service
+
+## Abilities
+
 Runs application as a Windows service child process.
 
 Logs service events to the rotating file `service.log`:
@@ -27,6 +30,8 @@ Supported operations (only in Administrator mode):
 - `make delete` - deletes the Windows service. If the service is running, it will be stopped first
 
 Can be managed through Task Manager or `sc.exe`.
+
+## Usage
 
 ### Configuration File
 
@@ -59,9 +64,21 @@ Can be managed through Task Manager or `sc.exe`.
 
 If the child process of the service has its own configuration file, the paths in it must also be absolute!
 
-Example in service.config.json.example.
+Example in `service.config.json.example`.
 
-### Tests
+### Import package
+
+```go
+import (
+	"github.com/edwardezs/win-svc/pkg/cli"
+	"github.com/edwardezs/win-svc/pkg/config"
+	"github.com/edwardezs/win-svc/pkg/service"
+)
+```
+
+Example of main package in `cmd/main.go`.
+
+## Tests
 
 To run Windows service tests:
 

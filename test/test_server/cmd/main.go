@@ -1,7 +1,7 @@
 package main
 
 import (
-	"win-svc/test/test_server/server"
+	"github.com/edwardezs/win-svc/test/test_server/server"
 
 	"github.com/rs/zerolog/log"
 )
