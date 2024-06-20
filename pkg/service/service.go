@@ -51,11 +51,11 @@ loop:
 				w.log.Write([]byte(fmt.Sprintf("Unexpected control request #%d\n", c)))
 			}
 		case err := <-processExited:
-			if err != nil {
-				w.log.Write([]byte(fmt.Sprintf("Process exited with error: %s, attempting restart\n", err.Error())))
-			} else {
-				w.log.Write([]byte("Process exited, attempting restart\n"))
+			if err == nil {
+				w.log.Write([]byte("Process exited with no error\n"))
+				break
 			}
+			w.log.Write([]byte(fmt.Sprintf("Process exited with error: %s, attempting restart\n", err.Error())))
 			timeout := time.Now().Add(changeStateTimeout)
 			for {
 				if timeout.Before(time.Now()) {
